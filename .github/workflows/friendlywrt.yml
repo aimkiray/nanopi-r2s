@@ -77,7 +77,7 @@ jobs:
         run: |
           cd friendlywrt-rk3328
           rm -rf kernel
-          git clone --depth=1 https://github.com/fanck0605/friendlywrt-kernel.git kernel
+          git clone --depth=1 -b linux-5.4.y https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git kernel
           cd kernel
           ../../set_repo_hash.sh Kernel
           cd ../openwrt
