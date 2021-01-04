@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     env:
       GITHUB_TOKEN: ${{ secrets.sec_token }}
       sec_token: ${{ secrets.sec_token }}
