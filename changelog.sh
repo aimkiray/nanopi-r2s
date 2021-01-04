@@ -90,12 +90,13 @@ echo "$ChangeLog"
 ChangeLogEscaped="${ChangeLog//'%'/'%25'}"
 ChangeLogEscaped="${ChangeLogEscaped//$'\n'/'%0A'}"
 ChangeLogEscaped="${ChangeLogEscaped//$'\r'/'%0D'}" 
-echo "::set-output name=changelog::$ChangeLogEscaped" 
-echo "::set-output name=buildtag::$BuildTag"
 if [ "$ChangeLog" == "" ]; then
     echo "No Change Happened, We Should Not Build."
-    exit 0
+    ChangeLogEscaped="No Change Happened"
+    # exit 0
 fi
+echo "::set-output name=changelog::$ChangeLogEscaped" 
+echo "::set-output name=buildtag::$BuildTag"
 
 ChangeLogFull="## $BuildTag
 
