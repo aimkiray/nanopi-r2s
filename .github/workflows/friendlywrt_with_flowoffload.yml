@@ -57,7 +57,7 @@ jobs:
           sed -i 's/^src-git packages.*/src-git packages https:\/\/github.com\/coolsnowwolf\/packages/' feeds.conf.default
           ../../set_repo_hash.sh LeanLuci https://github.com/coolsnowwolf/luci.git
           ../../set_repo_hash.sh LeanPackage https://github.com/coolsnowwolf/packages.git
-        
+
       - name: Add Packages to Lean
         run: |
           . add_packages_to_lean.sh
@@ -67,9 +67,6 @@ jobs:
           git config --global user.email "action@github.com" && git config --global user.name "GitHub Action"
           cd friendlywrt-rk3328
           git clone https://github.com/openwrt/openwrt
-          cd openwrt
-          git revert --no-edit d27623b542548b765ddd46b046169006a3b5f66f
-          cd ..
           rm -rf friendlywrt/package/libs
           cp -r openwrt/package/libs friendlywrt/package/
 
