@@ -78,7 +78,7 @@ jobs:
           cp openwrt/target/linux/generic/*-5.4/*OFFLOAD* kernelpatches/
           cp openwrt/target/linux/generic/*-5.4/*flow* kernelpatches/
           rm kernelpatches/*ppp*
-          rm -f kernelpatches/770-14-net-ethernet-mtk_eth_soc-set-PPE-flow-hash-as-skb-ha.patch
+          rm -f kernelpatches/770-*
           ./openwrt/scripts/patch-kernel.sh kernel kernelpatches
           echo "CONFIG_NETFILTER_ADVANCED=y" >> kernel/arch/arm64/configs/nanopi-r2_linux_defconfig
           echo "CONFIG_NETFILTER_XTABLES=m" >> kernel/arch/arm64/configs/nanopi-r2_linux_defconfig
