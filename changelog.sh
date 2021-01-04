@@ -48,14 +48,11 @@ while read l; do
 
             title="${name} [${oldHash}..$hash]($url/compare/$oldHash..$hash)"
             branch=master
-            if [ "$name" == "Argon" ]; then
-                branch="18.06"
-            fi
             if [ "$name" == "FriendlyWRT" ]; then
                 branch="master-v19.07.1"
             fi
             if [ "$name" == "Kernel" ]; then
-                branch="nanopi-r2-v5.4.y"
+                branch="v5.4.y"
             fi
 
             mkdir -p .temprepo
@@ -93,8 +90,8 @@ echo "$ChangeLog"
 ChangeLogEscaped="${ChangeLog//'%'/'%25'}"
 ChangeLogEscaped="${ChangeLogEscaped//$'\n'/'%0A'}"
 ChangeLogEscaped="${ChangeLogEscaped//$'\r'/'%0D'}" 
-echo "::`echo -n name=changelog::$ChangeLogEscaped`::"
-echo "::`echo -n name=buildtag::$BuildTag`::"
+echo "::set-output name=changelog::$ChangeLogEscaped" 
+echo "::set-output name=buildtag::$BuildTag"
 if [ "$ChangeLog" == "" ]; then
     echo "No Change Happened, We Should Not Build."
     exit 0
