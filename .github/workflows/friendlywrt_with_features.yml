@@ -65,50 +65,43 @@ jobs:
         run: |
           . add_packages_to_lean.sh
 
-      - name: Add SSRP
-        run: |
-          cd friendlywrt-rk3328/friendlywrt/package
-          git clone https://github.com/fw876/helloworld.git
-          cd helloworld
-          ../../../../set_repo_hash.sh SSRP
+      # - name: Install Openwrt Libs
+      #   run: |
+      #     git config --global user.email "action@github.com" && git config --global user.name "GitHub Action"
+      #     cd friendlywrt-rk3328
+      #     git clone --depth=1 https://github.com/openwrt/openwrt openwrt
+      #     rm -rf friendlywrt/package/libs
+      #     cp -r openwrt/package/libs friendlywrt/package/
 
-      - name: Install Openwrt Libs
-        run: |
-          git config --global user.email "action@github.com" && git config --global user.name "GitHub Action"
-          cd friendlywrt-rk3328
-          git clone https://github.com/openwrt/openwrt
-          rm -rf friendlywrt/package/libs
-          cp -r openwrt/package/libs friendlywrt/package/
-
-      - name: Use Chuck's Kernel
-        run: |
-          cd friendlywrt-rk3328
-          rm -rf kernel
-          git clone -b nanopi-r2-v5.4.y --depth=1 https://github.com/friendlyarm/kernel-rockchip.git kernel
-          cd kernel
-          ../../set_repo_hash.sh Kernel
-          cd ../openwrt
-          ../../set_repo_hash.sh OpenWrt
-          rm -f target/linux/generic/pending-5.4/834-ledtrig-libata.patch
-          ./scripts/patch-kernel.sh ../kernel target/linux/generic/backport-5.4
-          ./scripts/patch-kernel.sh ../kernel target/linux/generic/pending-5.4
-          ./scripts/patch-kernel.sh ../kernel target/linux/generic/hack-5.4
-          ./scripts/patch-kernel.sh ../kernel target/linux/octeontx/patches-5.4
-          cp -a ./target/linux/generic/files/* ../kernel/
-          cd ../kernel
-          wget -O net/netfilter/xt_FULLCONENAT.c https://raw.githubusercontent.com/Chion82/netfilter-full-cone-nat/master/xt_FULLCONENAT.c
-          wget -O ../fullcone_nat.patch https://github.com/fanck0605/nanopi-r2s/raw/openwrt-lienol/patches/001-kernel-add-full_cone_nat.patch
-          git apply ../fullcone_nat.patch
-          # cd ..
-          # curl -s https://api.github.com/repos/fanck0605/nanopi-r2s/releases/latest | jq ".zipball_url" | cut -d '"' -f 2 | wget -O fanck.zip -qi -
-          # kernelconfig=$(unzip -Z -1 fanck.zip | grep "nanopi-r2_linux_defconfig")
-          # if [ "$kernelconfig" == "" ]; then
-          #   echo "kernelconfig not fount"
-          #   exit 1
-          # fi
-          # unzip fanck.zip $kernelconfig
-          # mv $kernelconfig kernel/arch/arm64/configs/nanopi-r2_linux_defconfig
-          # rm fanck.zip
+      # - name: Use Chuck's Kernel
+      #   run: |
+      #     cd friendlywrt-rk3328
+      #     # rm -rf kernel
+      #     # git clone -b nanopi-r2-v5.4.y --depth=1 https://github.com/friendlyarm/kernel-rockchip.git kernel
+      #     cd kernel
+      #     ../../set_repo_hash.sh Kernel
+      #     cd ../openwrt
+      #     ../../set_repo_hash.sh OpenWrt
+      #     # rm -f target/linux/generic/pending-5.4/834-ledtrig-libata.patch
+      #     # ./scripts/patch-kernel.sh ../kernel target/linux/generic/backport-5.4
+      #     # ./scripts/patch-kernel.sh ../kernel target/linux/generic/pending-5.4
+      #     # ./scripts/patch-kernel.sh ../kernel target/linux/generic/hack-5.4
+      #     # ./scripts/patch-kernel.sh ../kernel target/linux/octeontx/patches-5.4
+      #     # cp -a ./target/linux/generic/files/* ../kernel/
+      #     cd ../kernel
+      #     wget -O net/netfilter/xt_FULLCONENAT.c https://raw.githubusercontent.com/Chion82/netfilter-full-cone-nat/master/xt_FULLCONENAT.c
+      #     wget -O ../fullcone_nat.patch https://github.com/fanck0605/nanopi-r2s/raw/openwrt-lienol/patches/001-kernel-add-full_cone_nat.patch
+      #     git apply ../fullcone_nat.patch
+      #     # cd ..
+      #     # curl -s https://api.github.com/repos/fanck0605/nanopi-r2s/releases/latest | jq ".zipball_url" | cut -d '"' -f 2 | wget -O fanck.zip -qi -
+      #     # kernelconfig=$(unzip -Z -1 fanck.zip | grep "nanopi-r2_linux_defconfig")
+      #     # if [ "$kernelconfig" == "" ]; then
+      #     #   echo "kernelconfig not fount"
+      #     #   exit 1
+      #     # fi
+      #     # unzip fanck.zip $kernelconfig
+      #     # mv $kernelconfig kernel/arch/arm64/configs/nanopi-r2_linux_defconfig
+      #     # rm fanck.zip
       
       - name: Change Log
         id: changelog
@@ -205,7 +198,7 @@ jobs:
         run: |
           cd friendlywrt-rk3328
           rm -rf lede
-          rm -rf openwrt
+          # rm -rf openwrt
 
       - name: Build Friendlywrt
         if: steps.changelog.outputs.changelog != ''
