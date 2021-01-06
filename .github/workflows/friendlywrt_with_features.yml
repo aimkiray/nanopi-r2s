@@ -200,6 +200,10 @@ jobs:
           rm -rf lede
           # rm -rf openwrt
 
+      - name: Setup Debug Session
+        uses: csexton/debugger-action@master
+        run: touch /tmp/keepalive
+
       - name: Build Friendlywrt
         if: steps.changelog.outputs.changelog != ''
         run: |
