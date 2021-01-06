@@ -200,9 +200,6 @@ jobs:
           rm -rf lede
           # rm -rf openwrt
 
-      - name: Keep Session
-        run: touch /tmp/keepalive
-
       - name: Setup Debug Session
         uses: csexton/debugger-action@master
 
